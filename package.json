@@ -1,0 +1,15 @@
+{
+  "name": "grunt-template-generator",
+  "version": "1.0.0",
+  "description": "generate file template",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "template",
+    "generator"
+  ],
+  "author": "Mourad Sabour",
+  "license": "ISC"
+}
