@@ -1,6 +1,6 @@
 /**
  * @ngdoc directive
- * @name <%= meta.acronym %>Directives.directive:<%= meta.className %>
+ * @name omDirectives.directive:PhoneDirective
  * @description
  * @restrict EA
  * @scope true
@@ -8,14 +8,14 @@
  * @param {object} options Configuration options for the directive
  */
 
-angular.module('<%= meta.acronym %>Directives').directive('<%= meta.className %>', [function () {
+angular.module('omDirectives').directive('PhoneDirective', [function () {
   return {
     restrict: "EA",
     replace: true,
     scope: {
       options: '='
     },
-    templateUrl: "common/app/components/<%= meta.className %>/<%= meta.className %>.tpl.html",
+    templateUrl: "common/app/components/PhoneDirective/PhoneDirective.tpl.html",
     controller: function ($scope) {
       /***************************************************
        * Exposed for testing
