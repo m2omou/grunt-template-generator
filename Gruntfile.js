@@ -1,22 +1,34 @@
 'use strict';
 
-module.exports = function( grunt ){
+module.exports = function (grunt) {
 
-  require( 'time-grunt' )( grunt );
-  // Project configuration.
-  grunt.initConfig( require( 'load-grunt-configs' )( grunt ) );
+    require('time-grunt')(grunt);
+    // Project configuration.
+    grunt.initConfig(require('load-grunt-configs')(grunt));
 
-  grunt.initConfig({
-    generate: {
-      options: {
-        dest : 'app/scripts',
-        map : {
-          backbone : '1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111'
+    grunt.initConfig({
+        generate: {
+            options: {
+                dest: {
+                    'common': 'example/common',
+                    'signup': 'example/signup',
+                    'orgManagement': 'example/orgManagement',
+                    'reporting': 'example/reporting',
+                    'payments': 'example/payments',
+                    'scm': 'example/scm'
+                },
+                acronyms: {
+                    'common': 'cm',
+                    'signup': 'su',
+                    'orgManagement': 'om',
+                    'reporting': 'rp',
+                    'payments': 'pm',
+                    'scm': 'sc'
+                }
+            }
         }
-      }
-    }
-  });
+    });
 
-  // Actually load this plugin's task(s).
-  grunt.loadTasks( 'tasks' );
+    // Actually load this plugin's task(s).
+    grunt.loadTasks('tasks');
 };
