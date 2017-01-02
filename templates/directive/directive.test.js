@@ -1,4 +1,4 @@
-describe('Unit: Test <%= meta.name %> Directive', function () {
+describe('Unit: Test <%= meta.nameWithAcronym %> Directive', function () {
     var $compile, $rootScope, scope, element, directiveScope, $httpBackend;
 
     // load the controller's module

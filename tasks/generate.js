@@ -5,8 +5,8 @@ var _s = require('underscore.string');
 var inquirer = require('inquirer');
 
 module.exports = function (grunt) {
-    var moduleName, modulesDst, acronyms, processed, componentType, componentName, fileName, successCallback;
-    var config = grunt.config.get('generate');
+    var moduleName, modulesDst, acronyms, processed, componentType, componentName, fileName,
+        successCallback, showPrompt, config = grunt.config.get('generate');
 
     grunt.registerTask('generate', 'Generator for user-defined templates', function () {
         // validation, must provide 2 params
@@ -14,20 +14,20 @@ module.exports = function (grunt) {
         // set variables
         init(this);
         // get the component template
-        var files = grunt.file.expand([path.join(__dirname, '..', 'templates',  componentType.toLowerCase() + '*')]);
+        var files = grunt.file.expand([path.join(__dirname, '..', 'templates/' + componentType.toLowerCase(), '*')]);
         // check if the template exist
         if (files.length <= 0) {
             grunt.fail.fatal(new Error('No template files match "' + componentType + '".'));
         }
-
+        // generate templates
         for (var i = 0; i < files.length; i++) {
-            // generate template
             generateTemplate(files[i]);
         }
 
-        inquirer.prompt([{
+        if (showPrompt) {
+            inquirer.prompt([{
                 type: "confirm",
-                message: "Are you sure you want to create '" + fileName + ".js'?",
+                message: "Are you sure you want to create '" + fileName + "'?",
                 name: "confirmed",
                 default: true
             }], function (answers) {
@@ -37,6 +37,9 @@ module.exports = function (grunt) {
                     return successCallback(false);
                 }
             });
+        } else {
+            return finalize();
+        }
     });
 
     /**
@@ -74,9 +77,11 @@ module.exports = function (grunt) {
             file: grunt.template.process(grunt.file.read(absoluteTemplatePath), {
                 data: {
                     meta: {
-                        name: acronym + _s.classify(componentName + componentType),
+                        name: componentName + componentType,
+                        nameWithAcronym: acronym + _s.classify(componentName + componentType),
                         dasherizedName: _s.dasherize(acronym + _s.classify(componentName + componentType)),
-                        acronym: acronym
+                        acronym: acronym,
+                        absolutePath: dest
                     }
                 }
             })
@@ -93,6 +98,7 @@ module.exports = function (grunt) {
         if (config && config.options) {
             acronyms = config.options.acronyms;
             modulesDst = config.options.dest;
+            showPrompt = config.options.showPrompt !== undefined ? config.options.showPrompt : true;
         }
         // grunt arguments
         moduleName = options.args[0];
@@ -111,6 +117,7 @@ module.exports = function (grunt) {
             if (grunt.file.exists(processed[i].absolutePath)) {
                 return grunt.fail.fatal(new Error('file already exists: ' + processed[i].absolutePath));
             }
+            console.log("Created " + processed[i].absolutePath);
             grunt.file.write(processed[i].absolutePath, processed[i].file);
         }
         return successCallback(true);

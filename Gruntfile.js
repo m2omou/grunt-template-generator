@@ -9,6 +9,7 @@ module.exports = function (grunt) {
     grunt.initConfig({
         generate: {
             options: {
+                showPrompt: true,
                 dest: {
                     'common': 'example/common',
                     'signup': 'example/signup',
