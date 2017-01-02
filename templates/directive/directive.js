@@ -15,7 +15,7 @@ angular.module('<%= meta.acronym %>Directives').directive('<%= meta.nameWithAcro
     scope: {
       options: '='
     },
-    templateUrl: "<%= meta.absolutePath %>/<%= meta.name %>.tpl.html",
+    templateUrl: "<%= meta.templateUrlRoot %>/<%= meta.name %>.tpl.html",
     controller: function ($scope) {
       /***************************************************
        * Exposed for testing

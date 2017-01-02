@@ -10,6 +10,8 @@ module.exports = function (grunt) {
         generate: {
             options: {
                 showPrompt: true,
+                includeTest: true,
+                // templateUrlRoot: "example",
                 dest: {
                     'common': 'example/common',
                     'signup': 'example/signup',
@@ -19,7 +21,7 @@ module.exports = function (grunt) {
                     'scm': 'example/scm'
                 },
                 acronyms: {
-                    'common': 'cm',
+                    'common': 'cn',
                     'signup': 'su',
                     'orgManagement': 'om',
                     'reporting': 'rp',

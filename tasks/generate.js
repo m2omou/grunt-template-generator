@@ -6,7 +6,7 @@ var inquirer = require('inquirer');
 
 module.exports = function (grunt) {
     var moduleName, modulesDst, acronyms, processed, componentType, componentName, fileName,
-        successCallback, showPrompt, config = grunt.config.get('generate');
+        successCallback, showPrompt, includeTest, config = grunt.config.get('generate');
 
     grunt.registerTask('generate', 'Generator for user-defined templates', function () {
         // validation, must provide 2 params
@@ -14,7 +14,8 @@ module.exports = function (grunt) {
         // set variables
         init(this);
         // get the component template
-        var files = grunt.file.expand([path.join(__dirname, '..', 'templates/' + componentType.toLowerCase(), '*')]);
+        var matchedSrcPath = includeTest ? "*" : "!(*test.js)";
+        var files = grunt.file.expand([path.join(__dirname, '..', 'templates/' + componentType.toLowerCase(), matchedSrcPath)]);
         // check if the template exist
         if (files.length <= 0) {
             grunt.fail.fatal(new Error('No template files match "' + componentType + '".'));
@@ -49,7 +50,7 @@ module.exports = function (grunt) {
      */
     function inputValidations(args) {
         if (3 !== args.length) {
-            grunt.fail.fatal(new Error('Generate task requires exactly 3 task arguments, e.g. "generate:reporting:controller:Name".'));
+            grunt.fail.fatal(new Error('Generate task requires 3 arguments generate:module:component:name (e.g. "generate:reporting:directive:phone)".'));
         }
     }
 
@@ -78,10 +79,10 @@ module.exports = function (grunt) {
                 data: {
                     meta: {
                         name: componentName + componentType,
-                        nameWithAcronym: acronym + _s.classify(componentName + componentType),
-                        dasherizedName: _s.dasherize(acronym + _s.classify(componentName + componentType)),
+                        nameWithAcronym: acronym + _s.classify(componentName),
+                        dasherizedName: _s.dasherize(acronym + _s.classify(componentName)),
                         acronym: acronym,
-                        absolutePath: dest
+                        templateUrlRoot: dest.replace(config.options.templateUrlRoot + "/", "")
                     }
                 }
             })
@@ -98,6 +99,7 @@ module.exports = function (grunt) {
         if (config && config.options) {
             acronyms = config.options.acronyms;
             modulesDst = config.options.dest;
+            includeTest = config.options.includeTest !== undefined ? config.options.includeTest : true;
             showPrompt = config.options.showPrompt !== undefined ? config.options.showPrompt : true;
         }
         // grunt arguments

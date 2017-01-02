@@ -4,9 +4,10 @@ describe('Unit: Test <%= meta.nameWithAcronym %> Directive', function () {
     // load the controller's module
     beforeEach(function () {
         angular.mock.inject(
-            function ($injector, _$compile_, _$rootScope_) {
+            function ($injector, _$compile_, _$rootScope_, _$httpBackend_) {
                 $compile = _$compile_;
                 $rootScope = _$rootScope_;
+                $httpBackend = _$httpBackend_;
             }
         );
     });
