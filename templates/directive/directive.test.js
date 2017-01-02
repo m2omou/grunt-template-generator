@@ -4,7 +4,7 @@ describe('Unit: Test <%= meta.nameWithAcronym %> Directive', function () {
     // load the controller's module
     beforeEach(function () {
         module('<%= meta.acronym %>Directives');
-        module('<%= meta.templateUrlRoot %>');
+        module('<%= meta.templatePathRoot %>/<%= meta.name %>.tpl.html');
 
         angular.mock.inject(
             function ($injector, _$compile_, _$rootScope_, _$httpBackend_) {

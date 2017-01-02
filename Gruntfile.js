@@ -11,7 +11,7 @@ module.exports = function (grunt) {
             options: {
                 showPrompt: true,
                 includeTest: true,
-                // templateUrlRoot: "example",
+                templatePathRoot: "example",
                 dest: {
                     'common': 'example/common',
                     'signup': 'example/signup',

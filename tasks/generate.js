@@ -69,6 +69,9 @@ module.exports = function (grunt) {
         if (modulesDst && modulesDst[moduleName]) {
             dest = modulesDst[moduleName] + "/" + dest;
         }
+        // set template path root. e.g (modules/reporting/components/app), the path should start from /reporting/..
+        var templatePathRoot = dest.replace(config.options.templatePathRoot + "/", "");
+
         // for test files, move them to a test folder
         if (extension.indexOf("test") !== -1) {
             dest += "/test";
@@ -82,7 +85,7 @@ module.exports = function (grunt) {
                         nameWithAcronym: acronym + _s.classify(componentName),
                         dasherizedName: _s.dasherize(acronym + _s.classify(componentName)),
                         acronym: acronym,
-                        templateUrlRoot: dest.replace(config.options.templateUrlRoot + "/", "")
+                        templatePathRoot: templatePathRoot
                     }
                 }
             })
