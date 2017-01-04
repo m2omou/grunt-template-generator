@@ -11,6 +11,7 @@ module.exports = function (grunt) {
             options: {
                 showPrompt: true,
                 includeTest: true,
+                wrapInFolder: true,
                 templatePathRoot: "example",
                 dest: {
                     'common': 'example/common',
@@ -18,7 +19,8 @@ module.exports = function (grunt) {
                     'orgManagement': 'example/orgManagement',
                     'reporting': 'example/reporting',
                     'payments': 'example/payments',
-                    'scm': 'example/scm'
+                    'scm': 'example/scm',
+                    'backend': 'example/backend'
                 },
                 acronyms: {
                     'common': 'cn',

@@ -14,7 +14,7 @@ module.exports = function (grunt) {
         // set variables
         init(this);
         // get the component template
-        var matchedSrcPath = includeTest ? "*" : "!(*test.js)";
+        var matchedSrcPath = includeTest ? "*" : "!(*test.)";
         var files = grunt.file.expand([path.join(__dirname, '..', 'templates/' + componentType.toLowerCase(), matchedSrcPath)]);
         // check if the template exist
         if (files.length <= 0) {
@@ -63,7 +63,7 @@ module.exports = function (grunt) {
         var absoluteTemplatePath = path.resolve(templatePath);
         var acronym = acronyms[moduleName] ? acronyms[moduleName] : "";
         var extension = templatePath.match(/\.(.*)/)[0];  // e.g '.test.js', '.tpl.html'
-        var dest = fileName; // will create a folder using the component name
+        var dest = config.options.wrapInFolder ? fileName + "/" : ""; // if true will wrap the file inside a folder using the file name
 
         // check if the file need a specific location
         if (modulesDst && modulesDst[moduleName]) {
@@ -74,14 +74,17 @@ module.exports = function (grunt) {
 
         // for test files, move them to a test folder
         if (extension.indexOf("test") !== -1) {
-            dest += "/test";
+            dest += "test/";
         }
+
         processed.push({
-            absolutePath: dest + "/" + fileName + extension,
+            absolutePath: dest + fileName + extension,
             file: grunt.template.process(grunt.file.read(absoluteTemplatePath), {
                 data: {
                     meta: {
                         name: componentName + componentType,
+                        componentName: _s.classify(componentName),
+                        componentType: componentType,
                         nameWithAcronym: acronym + _s.classify(componentName),
                         dasherizedName: _s.dasherize(acronym + _s.classify(componentName)),
                         acronym: acronym,
@@ -122,7 +125,7 @@ module.exports = function (grunt) {
             if (grunt.file.exists(processed[i].absolutePath)) {
                 return grunt.fail.fatal(new Error('file already exists: ' + processed[i].absolutePath));
             }
-            console.log("Created " + processed[i].absolutePath);
+            grunt.log.writeln('Created '['green'].bold + processed[i].absolutePath);
             grunt.file.write(processed[i].absolutePath, processed[i].file);
         }
         return successCallback(true);
