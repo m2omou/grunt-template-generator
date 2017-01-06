@@ -91,7 +91,7 @@ The meta data helps customize your templates, here are some options:
 
 Name               | Description     
 ---                |---       
-name               | The fullname including the component name and the component type. E.g (productDirective)
+name               | The fullname including the componentName and the componentType. E.g (productDirective)
 componentName      | The component name. E.g (product)
 componentType      | The component type. E.g (directive)
 nameWithAcronym    | The fullname including the acronym is speficied. E.g (rpProductDirective)
@@ -99,7 +99,7 @@ dasherizedName     | The fullname seperated with dashes. E.g "rpProductDirective
 acronym            | If specified will return the acronym otherwise this will be empty
 templatePathRoot   | The absolute path of the file
 
-#### Example
+### Example
 
 For the example, lets use the following custom template for an angular directive:
 
