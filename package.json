@@ -1,6 +1,6 @@
 {
   "name": "grunt-template-generator",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "generate file template",
   "main": "Gruntfile.js",
   "engines": {
