@@ -13,6 +13,7 @@ module.exports = function (grunt) {
                 includeTest: true,
                 wrapInFolder: true,
                 templatePathRoot: "example",
+                customTemplatesUrl: 'myCustomTemplates',
                 dest: {
                     'common': 'example/common',
                     'signup': 'example/signup',

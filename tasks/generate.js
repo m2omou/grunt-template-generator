@@ -16,6 +16,14 @@ module.exports = function (grunt) {
         // get the component template
         var matchedSrcPath = includeTest ? "*" : "!(*test.)";
         var files = grunt.file.expand([path.join(__dirname, '..', 'templates/' + componentType.toLowerCase(), matchedSrcPath)]);
+
+        // add external custom templates
+        if (config.options.customTemplatesUrl) {
+            var customFiles = grunt.file.expand([path.join(__dirname, '..', config.options.customTemplatesUrl + '/' + componentType.toLowerCase(), matchedSrcPath)]);
+
+            files = files.concat(customFiles);
+        }
+
         // check if the template exist
         if (files.length <= 0) {
             grunt.fail.fatal(new Error('No template files match "' + componentType + '".'));
