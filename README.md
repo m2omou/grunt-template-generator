@@ -77,7 +77,112 @@ wrapInFolder           | `boolean` | The generated files will wrap inside a fold
 templatePathRoot       | `string`  | Set file template path root. e.g (`modules/reporting/components/app`), the path should start from `reporting/..`
 dest                   | `object`  | The destination where the files will be stored.
 acronyms               | `object`  | Acronyms are used to prefix a component name [ac]Name e.g (rpTimeLine) where `rp` stand for reporting.
+customTemplatesUrl     | `object`  | Specify the directory for custom templates
 
+### Templating
+
+The grunt task, comes with some predefined templates such as angular directives, etc ... But you can also custom your own templates using the `customTemplatesUrl` option.
+
+
+### Meta data
+
+The meta data helps customize your templates, here are some options:
+
+
+Name               | Description     
+---                |---       
+name               | The fullname including the component name and the component type. E.g (productDirective)
+componentName      | The component name. E.g (product)
+componentType      | The component type. E.g (directive)
+nameWithAcronym    | The fullname including the acronym is speficied. E.g (rpProductDirective)
+dasherizedName     | The fullname seperated with dashes. E.g "rpProductDirective" will become "rp-product-directive". Usefull for calling directives in angular for example. 
+acronym            | If specified will return the acronym otherwise this will be empty
+templatePathRoot   | The absolute path of the file
+
+#### Example
+
+For the example, lets use the following custom template for an angular directive:
+
+
+```javascript
+/**
+ * @ngdoc directive
+ * @name <%= meta.acronym %>Directives.directive:<%= meta.nameWithAcronym %>
+ * @description
+ * @restrict EA
+ * @scope true
+ * @requires
+ * @param {object} options Configuration options for the directive
+ */
+
+angular.module('<%= meta.acronym %>Directives').directive('<%= meta.nameWithAcronym %>', [function () {
+  return {
+    restrict: "EA",
+    replace: true,
+    scope: {
+      options: '='
+    },
+    templateUrl: "<%= meta.templatePathRoot %>/<%= meta.name %>.tpl.html",
+    controller: function ($scope) {
+      /***************************************************
+       * Exposed for testing
+       ***************************************************/
+
+      /***************************************************
+       * Scope variables, functions
+       ***************************************************/
+
+      /***************************************************
+       * Private variables, functions
+       ***************************************************/
+    }
+  };
+}]);
+```
+
+Now that we got our template defined lets run the grunt task:
+
+```bash
+grunt generate:common:directive:product
+```
+
+This will generate the following template:
+
+```javascript
+/**
+ * @ngdoc directive
+ * @name cnDirectives.directive:cnProduct
+ * @description
+ * @restrict EA
+ * @scope true
+ * @requires
+ * @param {object} options Configuration options for the directive
+ */
+
+angular.module('cnDirectives').directive('cnProduct', [function () {
+  return {
+    restrict: "EA",
+    replace: true,
+    scope: {
+      options: '='
+    },
+    templateUrl: "common/productDirective/productDirective.tpl.html",
+    controller: function ($scope) {
+      /***************************************************
+       * Exposed for testing
+       ***************************************************/
+
+      /***************************************************
+       * Scope variables, functions
+       ***************************************************/
+
+      /***************************************************
+       * Private variables, functions
+       ***************************************************/
+    }
+  };
+}]);
+```
 
 
 ## License
