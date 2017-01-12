@@ -38,6 +38,7 @@ grunt.loadNpmTasks('grunt-template-generator');
                 showPrompt: true,
                 includeTest: true,
                 wrapInFolder: true,
+                templatePathRoot: "modules",
                 dest: {
                     // The destination where the files will be stored. 
                     'common': 'modules/common/app/components',
