@@ -4,8 +4,5 @@ module.exports = {
     "tasks/*.js",
     "<%= nodeunit.tests %>"
   ],
-  "options" : {
-    "jshintrc" : ".jshintrc",
-    reporter   : require( 'jshint-stylish' )
-  }
+  "options" : {}
 };

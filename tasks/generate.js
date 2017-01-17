@@ -111,7 +111,7 @@ module.exports = function (grunt) {
         processed = [];
         // grunt config options
         if (config && config.options) {
-            acronyms = config.options.acronyms;
+            acronyms = config.options.acronyms ? config.options.acronyms : {};
             modulesDst = config.options.dest;
             includeTest = config.options.includeTest !== undefined ? config.options.includeTest : true;
             showPrompt = config.options.showPrompt !== undefined ? config.options.showPrompt : true;
