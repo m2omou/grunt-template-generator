@@ -37,7 +37,7 @@ grunt.loadNpmTasks('grunt-template-generator');
             options: {
                 showPrompt: true,
                 includeTest: true,
-                wrapInFolder: false,
+                wrapInFolder: true,
                 templatePathRoot: "modules",
                 dest: {
                     // The destination where the files will be stored. 
